@@ -1,0 +1,75 @@
+package templates
+
+import "fmt"
+
+templ Graph(n int) {
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8"/>
+            <title>Quadruplet</title>
+            <script src="https://go-echarts.github.io/go-echarts-assets/assets/echarts.min.js"></script>
+            <script src="https://go-echarts.github.io/go-echarts-assets/assets/echarts@4.min.js"></script>
+            <script src="https://go-echarts.github.io/go-echarts-assets/assets/echarts-gl.min.js"></script>
+            <script src="https://go-echarts.github.io/go-echarts-assets/assets/themes/westeros.js"></script>
+            <style>
+                #slider-container {
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    width: 300px;
+                    padding: 20px;
+                    box-sizing: border-box;
+                    height: 100vh;
+                    overflow-y: auto;
+                    background-color: #f4f4f4;
+                }
+                .slider {
+                    margin: 10px 0;
+                }
+                .container {
+                    margin-top:30px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+                .item {
+                    margin: auto;
+                }
+            </style>
+        </head>
+        <body>
+            <div id="slider-container">
+            <button id="DefaultConfig">Default</button>
+            <br/>
+                <form id="slider-form">
+                    for i:=0; i<n; i++ {
+                        <span>Leg ID { fmt.Sprintf("%d",i) } : </span>
+                        <div class="slider">
+                            <span id={ fmt.Sprintf("sliderValue%d",i*(n-1)+0) }>0</span>
+                            <input id={ fmt.Sprintf("slider%d",i*(n-1)+0) } type="range" min="-48" max="48" value="0" class="slider-input" />
+                        </div>
+                        <div class="slider">
+                            <span id={ fmt.Sprintf("sliderValue%d",i*(n-1)+1) }>-90</span>
+                            <input id={ fmt.Sprintf("slider%d",i*(n-1)+1) } type="range" min="-200" max="90" value="-90" class="slider-input"/>
+                        </div>
+                        <div class="slider">
+                            <span id={ fmt.Sprintf("sliderValue%d",i*(n-1)+2) }>-90</span>
+                            <input id={ fmt.Sprintf("slider%d",i*(n-1)+2) } type="range" min="-156" max="-48" value="-90" class="slider-input"/>
+                        </div>
+                    }
+                </form>
+            </div>
+
+            <div class="container">
+                <div class="item" id="quadruplet" style="width: 900px; height: 500px; user-select: none; position: relative;" _echarts_instance_="ec_1706227771081">
+                    <div style="position: relative; width: 900px; height: 500px; padding: 0px; margin: 0px; border-width: 0px; cursor: default;">
+                        <canvas style="width: 900px; height: 500px; position: absolute; left: 0px; top: 0px;" width="900" height="500"></canvas>
+                        <canvas style="position: absolute; left: 0px; top: 0px; width: 900px; height: 500px; user-select: none; padding: 0px; margin: 0px; border-width: 0px;" data-zr-dom-id="zr_0" width="900" height="500"></canvas>
+                    </div>
+                </div>
+            </div>
+        <script type="module" src="/js/graph.js"></script>
+        </body>
+    </html>
+}
