@@ -22,12 +22,12 @@ func NewRobot(head, center, back *Quaternions.Point3D) *Robot {
 }
 
 type Robot struct {
-	Legs        []*Leg
-	NormalVec   *Quaternions.Point3D
-	HeadPoint   *Quaternions.Point3D
-	CenterPoint *Quaternions.Point3D
-	BackPoint   *Quaternions.Point3D
-	Faze        int
+	Legs        []*Leg               `json:"Legs"`
+	NormalVec   *Quaternions.Point3D `json:"NormalVec"`
+	HeadPoint   *Quaternions.Point3D `json:"HeadPoint"`
+	CenterPoint *Quaternions.Point3D `json:"CenterPoint"`
+	BackPoint   *Quaternions.Point3D `json:"BackPoint"`
+	Faze        int                  `json:"Faze"`
 }
 
 func (r *Robot) AddLeg(l *Leg, config func(leg *Leg)) {
@@ -118,23 +118,22 @@ func (r *Robot) SetTouchPoint() {
 	}
 }
 
-func (r *Robot) SendGraphPage() func(c fiber.Ctx) error {
+func (r *Robot) ResetPosition() {
 	r.Legs = []*Leg{}
 	r.AddLeg(NewLeg(0, "Front Left Leg", &Quaternions.Point3D{160, 100, 0}), FrontLeftLeg)
 	r.AddLeg(NewLeg(1, "Front Right Leg", &Quaternions.Point3D{160, -100, 0}), FrontRightLeg)
 	r.AddLeg(NewLeg(2, "Back Left Leg", &Quaternions.Point3D{-150, 100, 0}), BackLeftLeg)
 	r.AddLeg(NewLeg(3, "Back Right Leg", &Quaternions.Point3D{-150, -100, 0}), BackRightLeg)
+}
 
+func (r *Robot) SendGraphPage() func(c fiber.Ctx) error {
+	r.ResetPosition()
 	return handlers.GetHTML(templates.Graph(4))
 }
 
 func (r *Robot) SendDefaultConfig() func(c fiber.Ctx) error {
 	return func(c fiber.Ctx) (err error) {
-		r.Legs = []*Leg{}
-		r.AddLeg(NewLeg(0, "Front Left Leg", &Quaternions.Point3D{160, 100, 0}), FrontLeftLeg)
-		r.AddLeg(NewLeg(1, "Front Right Leg", &Quaternions.Point3D{160, -100, 0}), FrontRightLeg)
-		r.AddLeg(NewLeg(2, "Back Left Leg", &Quaternions.Point3D{-150, 100, 0}), BackLeftLeg)
-		r.AddLeg(NewLeg(3, "Back Right Leg", &Quaternions.Point3D{-150, -100, 0}), BackRightLeg)
+		r.ResetPosition()
 		c.Set("Content-Type", fiber.MIMEApplicationJSON)
 		err = c.Send(r.GetPoints())
 		if err != nil {
@@ -146,12 +145,6 @@ func (r *Robot) SendDefaultConfig() func(c fiber.Ctx) error {
 
 func (r *Robot) SendGraphData() func(c fiber.Ctx) error {
 	return func(c fiber.Ctx) (err error) {
-		//r.Legs = []*Leg{}
-		//r.AddLeg(NewLeg(0, "Front Left Leg", &quat.Point3D{160, 100, 0}), FrontLeftLeg)
-		//r.AddLeg(NewLeg(1, "Front Right Leg", &quat.Point3D{160, -100, 0}), FrontRightLeg)
-		//r.AddLeg(NewLeg(2, "Back Left Leg", &quat.Point3D{-150, 100, 0}), BackLeftLeg)
-		//r.AddLeg(NewLeg(3, "Back Right Leg", &quat.Point3D{-150, -100, 0}), BackRightLeg)
-		//r.ResetPosition()
 		r.SetTouchPoint()
 		r.FindStandingPlane()
 		//r.TranslateRobot(&quat.Point3D{0, 0, 240})

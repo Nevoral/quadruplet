@@ -37,6 +37,9 @@ func (v *Vector3D) DotProduct(vec *Vector3D) float64 {
 
 func (v *Vector3D) Normalize() *Vector3D {
 	length := v.VecLength()
+	if length == 0 {
+		return v
+	}
 	v[0], v[1], v[2] = v[0]/length, v[1]/length, v[2]/length
 	return v
 }

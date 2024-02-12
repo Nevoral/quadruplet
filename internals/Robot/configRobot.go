@@ -10,7 +10,7 @@ func FrontLeftLeg(r *Leg) {
 	angleConfig := [][]Quaternions.Angle{{0, -48, 96}, {-90, -200, 290}, {-90, -156, 108}, {0, 0, 0}}
 	armLen := []float64{55, 240, 240, 0}
 	r.CreateJoints(center, normalVec, angleConfig, armLen)
-	r.ConfigFunc = FrontLeftLeg
+	r.configFunc = FrontLeftLeg
 }
 
 func FrontRightLeg(r *Leg) {
@@ -19,7 +19,7 @@ func FrontRightLeg(r *Leg) {
 	angleConfig := [][]Quaternions.Angle{{0, -48, 96}, {-90, -200, 290}, {-90, -156, 108}, {0, 0, 0}}
 	armLen := []float64{55, 240, 240, 0}
 	r.CreateJoints(center, normalVec, angleConfig, armLen)
-	r.ConfigFunc = FrontRightLeg
+	r.configFunc = FrontRightLeg
 }
 
 func BackRightLeg(r *Leg) {
@@ -28,7 +28,7 @@ func BackRightLeg(r *Leg) {
 	angleConfig := [][]Quaternions.Angle{{0, -48, 96}, {-90, -200, 290}, {-90, -156, 108}, {0, 0, 0}}
 	armLen := []float64{55, 240, 240, 0}
 	r.CreateJoints(center, normalVec, angleConfig, armLen)
-	r.ConfigFunc = BackRightLeg
+	r.configFunc = BackRightLeg
 }
 
 func BackLeftLeg(r *Leg) {
@@ -37,5 +37,5 @@ func BackLeftLeg(r *Leg) {
 	angleConfig := [][]Quaternions.Angle{{0, -48, 96}, {-90, -200, 290}, {-90, -156, 108}, {0, 0, 0}}
 	armLen := []float64{55, 240, 240, 0}
 	r.CreateJoints(center, normalVec, angleConfig, armLen)
-	r.ConfigFunc = BackLeftLeg
+	r.configFunc = BackLeftLeg
 }

@@ -6,7 +6,7 @@ default: benzo
 .PHONY: robot
 benzo:
 	templ generate
-	go run cmd/QuadrupletWeb/main.go
+	go run ./cmd/QuadrupletWeb/main.go
 leg:
 	templ generate
-	go run cmd/LegWeb/main.go
+	go run ./cmd/LegWeb/main.go

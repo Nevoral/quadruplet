@@ -19,14 +19,14 @@ func NewJoint(id int, currentAngle, maxAngle, motionRange Quaternions.Angle) *Jo
 }
 
 type Joint struct {
-	Id            int
-	NormalVec     *Quaternions.Vector3D
-	RelativePoint *Quaternions.Point3D
-	MotionRange   Quaternions.Angle
-	MaxAngle      Quaternions.Angle
-	CurrentAngle  Quaternions.Angle
-	AngleChange   Quaternions.Angle
-	Arm           float64
+	Id            int                   `json:"Id"`
+	NormalVec     *Quaternions.Vector3D `json:"NormalVec"`
+	RelativePoint *Quaternions.Point3D  `json:"RelativePoint"`
+	MotionRange   Quaternions.Angle     `json:"MotionRange"`
+	MaxAngle      Quaternions.Angle     `json:"MaxAngle"`
+	CurrentAngle  Quaternions.Angle     `json:"CurrentAngle"`
+	AngleChange   Quaternions.Angle     `json:"AngleChange"`
+	Arm           float64               `json:"Arm"`
 }
 
 func (j *Joint) SetAngle(angle Quaternions.Angle) *Joint {

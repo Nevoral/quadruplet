@@ -17,18 +17,18 @@ func NewLeg(id int, name string, position *Quaternions.Point3D) *Leg {
 		Name:            name,
 		Joints:          nil,
 		AbsolutPosition: position,
-		ConfigFunc:      nil,
+		configFunc:      nil,
 		TouchPosition:   nil,
 	}
 }
 
 type Leg struct {
-	Id              int
-	Name            string
-	Joints          []*Joint
-	AbsolutPosition *Quaternions.Point3D
-	ConfigFunc      func(*Leg)
-	TouchPosition   *Quaternions.Point3D
+	Id              int                  `json:"Id"`
+	Name            string               `json:"Name"`
+	Joints          []*Joint             `json:"Joints"`
+	AbsolutPosition *Quaternions.Point3D `json:"AbsolutPosition"`
+	configFunc      func(*Leg)           `json:"-"`
+	TouchPosition   *Quaternions.Point3D `json:"TouchPosition"`
 }
 
 func (l *Leg) CreateJoints(center []Quaternions.Point3D, normalVec []Quaternions.Vector3D, angleConfig [][]Quaternions.Angle, armLen []float64) {

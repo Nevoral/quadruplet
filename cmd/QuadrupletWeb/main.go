@@ -3,8 +3,10 @@ package main
 import (
 	quat "github.com/Nevoral/quadrupot/internals/Quaternions"
 	rob "github.com/Nevoral/quadrupot/internals/Robot"
+	"github.com/Nevoral/quadrupot/internals/pythonAPI"
 	"github.com/Nevoral/quadrupot/internals/router"
 	"github.com/gofiber/fiber/v3"
+	"time"
 )
 
 func main() {
@@ -14,10 +16,9 @@ func main() {
 
 	router.Router(r, app)
 
-	//soc := pythonAPI.NewBSDSocket()
-	//soc.SendMessage("This is the best way to comunicate throught this socket")
-	//go soc.OpenSocket("42069")
-	//fmt.Println(len([]byte("This is the best way to comunicate throught this socket")))
+	soc := pythonAPI.NewBSDSocket(r)
+	go soc.OpenSocket("42069")
+	soc.SendMessage("Message to all clients\n", nil, 5*time.Second)
 
 	//Start the server
 	err := app.Listen(":8081")
